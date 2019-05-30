@@ -15,7 +15,7 @@ class TimeStampedModel(models.Model):
 
 
 class Url(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='urls')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='urls', blank=True, null=True)
     url = models.CharField(max_length=2500)
     shortcode = models.CharField(max_length=15, unique=True, blank=False, null=False, )
     description = models.TextField(null=True)

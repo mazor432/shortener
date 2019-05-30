@@ -12,13 +12,21 @@ class UrlList(generics.ListAPIView):
 
     def get_queryset(self):
         user_id = self.request._user.id
+        if user_id is None:
+            return []
         queryset = Url.objects.filter(user=user_id)
         return queryset
 
 
 class UrlDetailView(generics.RetrieveDestroyAPIView):
-    queryset = Url.objects.all()
     serializer_class = URLSerializer
+
+    def get_queryset(self):
+        user_id = self.request._user.id
+        if user_id is None:
+            return []
+        queryset = Url.objects.filter(user=user_id)
+        return queryset
 
 
 class GenerateUrl(generics.CreateAPIView):

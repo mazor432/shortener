@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     # path('api/auth/', include('djoser.urls.authtoken')),
     path('api/v1/', include('shortener_api.urls')),
-    re_path(r'^(?P<shortcode>[\w-]+)/$', RedirectUrl.as_view())
+    re_path(r'^(?P<shortcode>[\w-]+)/$', RedirectUrl.as_view(), name='shortener')
 ]

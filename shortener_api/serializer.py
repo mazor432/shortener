@@ -1,3 +1,6 @@
+import urllib.parse
+
+from django.urls import reverse
 from rest_framework import serializers
 
 from .models import Url
@@ -13,7 +16,9 @@ class URLSerializer(serializers.ModelSerializer):
 
     def get_shorten_link(self, obj):
         request = self.context.get('request')
-        return request.get_host() + '/' + obj.shortcode
+        return urllib.parse.urljoin(
+            request.build_absolute_uri('/')[:-1],
+            reverse('shortener', args=(obj.shortcode,)))
 
     def validate(self, data):
         if 'http://' not in data['url'] and 'https://' not in data['url']:
